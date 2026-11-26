@@ -54,7 +54,10 @@ export function IdeaInBrief({ live }) {
         <p className="idea-note">
           Read the series:{' '}
           {SERIES.map(([title, href], i) => (
-            <React.Fragment key={href}>{i > 0 && ' · '}<a href={href}>{title}</a></React.Fragment>
+            <React.Fragment key={href}>
+              {i > 0 && ' · '}
+              <a href={href} target="_blank" rel="noopener noreferrer">{title}<span className="sr-only"> (opens in a new tab)</span></a>
+            </React.Fragment>
           ))}
         </p>
       </div>
