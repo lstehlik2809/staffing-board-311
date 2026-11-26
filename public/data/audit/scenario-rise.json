@@ -1,0 +1,191 @@
+{
+  "id": "scenario-rise",
+  "context": {
+    "mode": "scenario",
+    "scenario": "rise",
+    "runDate": "2026-03-12",
+    "asOf": "2026-03-10",
+    "planningDay": "2026-03-13"
+  },
+  "factsHash": "1b4f35775b07a01f",
+  "llm": {
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "medium",
+    "promptVersion": "2026-11-26.5"
+  },
+  "systemPrompt": "You write the short statements on a contact-centre staffing board. A workforce planner reads them at a ten-minute daily huddle to decide whether tomorrow's roster needs changing.\n\nYou are given FACTS as JSON. A tested statistical model and fixed decision rules produced every number and every verdict in it. You do no analysis. You turn the facts into four plain statements.\n\nHard rules:\n1. Use only numbers, day labels and topic names that appear in FACTS, copied character for character (for example \"11,304\", \"9,873–12,478\", \"Tue 24 Nov\", \"4%\"). Never calculate, round, combine or estimate a number.\n2. State the verdict exactly as FACTS gives it: \"within the expected range\", \"above the expected range\" or \"below the expected range\". Do not use words such as up, down, spike, surge, drop, jump, stable, normal or unusual.\n3. Give no causes and no explanations. Give no advice except the defined_response of a rule listed in triggered_rules.\n4. Each statement must describe what its chart shows, leading with the conclusion.\n5. Plain English, sentence case, no hedging, no exclamation marks, no emoji.\n\nThe four statements:\n- headline: If overall is \"no_rule_triggered\", start with \"No action needed.\" and then give the evidence in one or two sentences: the latest_day with its latest_day_calls and its exact latest_day_status phrase, and the highest_shortfall_risk value with its day. If either is null, use last_7_days_total instead. Never only restate the verdict (for example \"No rule was triggered.\"). Otherwise start with \"Action needed:\" and, for each triggered rule, say in a few words what fired and who responds (use the responder exactly as written). Do not repeat the defined responses in full: the board lists them beside each rule. At most 45 words.\n- volume_title: for the chart of daily calls against the range expected the day before. One or two sentences, at most 40 words. Lead with the latest day: it must name latest_day, latest_day_calls, the exact latest_day_status phrase and latest_day_expected_range. Then say how many of the days shown fell outside their expected range, using the exact days_outside_phrase as the subject (for example \"None of the 42 days shown fell outside its expected range.\"). Never say or imply that all days were within range unless days_outside_expected_range is 0.\n- staffing_title: for the chart of required agents against rostered agents over the next days. One sentence, at most 30 words. It must name the highest_shortfall_risk value and its day, and say how many days are at or above the action_threshold using the exact days_at_or_above_threshold_phrase.\n- topics_title: for the small charts of 7-day call totals (all calls and each topic). One or two sentences, at most 45 words. Give the last_7_days_total for all calls with its exact last_7_days_status phrase, then the topics. If any topics are outside the expected range, say how many and name each one (at most three) with its status. If none are, say it once, positively: that all topics_tracked topics are within the expected range (for example \"All 24 topics are within the expected range.\"). Do not also say that none are outside it. Do not write the digit 0 for a count of zero.\n\nReturn JSON only.",
+  "facts": {
+    "data_through": "Tue 10 Mar",
+    "planning_day": "Fri 13 Mar",
+    "outlook_days": 7,
+    "overall": "rules_triggered",
+    "triggered_rules": [
+      {
+        "rule": "Roster no longer fits the forecast",
+        "defined_response": "Offer overtime or call in the flex pool for that day; if over-rostered, offer voluntary time off or move agents to training.",
+        "responder": "Duty workforce planner"
+      },
+      {
+        "rule": "A week outside the expected range",
+        "defined_response": "Re-base the forecast and review rosters for the next two weeks.",
+        "responder": "Planning lead"
+      },
+      {
+        "rule": "A call topic outside the expected range",
+        "defined_response": "Brief agents, update the phone-menu message and the knowledge article, and tell the agency that owns the topic.",
+        "responder": "Knowledge lead"
+      }
+    ],
+    "volume": {
+      "latest_day": "Tue 10 Mar",
+      "latest_day_status": "within the expected range",
+      "latest_day_calls": "13,679",
+      "latest_day_expected_range": "11,729–14,843",
+      "days_shown": 42,
+      "days_outside_expected_range": 1,
+      "days_outside_phrase": "1 of the 42 days shown",
+      "outside_days": [
+        {
+          "day": "Wed 4 Mar",
+          "calls": "13,346",
+          "status": "above",
+          "expected_range": "10,369–13,069"
+        }
+      ],
+      "last_7_days_total": "78,559",
+      "last_7_days_expected_range": "62,096–75,244",
+      "last_7_days_status": "above the expected range",
+      "next_day_forecast": {
+        "day": "Fri 13 Mar",
+        "expected_range": "10,381–13,520",
+        "holiday": null
+      }
+    },
+    "staffing": {
+      "action_threshold": "25%",
+      "days": [
+        {
+          "day": "Fri 13 Mar",
+          "shortfall_risk": "80%",
+          "status": "shortfall risk at or above threshold",
+          "holiday": null
+        },
+        {
+          "day": "Sat 14 Mar",
+          "shortfall_risk": "49%",
+          "status": "shortfall risk at or above threshold",
+          "holiday": null
+        },
+        {
+          "day": "Sun 15 Mar",
+          "shortfall_risk": "41%",
+          "status": "shortfall risk at or above threshold",
+          "holiday": null
+        },
+        {
+          "day": "Mon 16 Mar",
+          "shortfall_risk": "65%",
+          "status": "shortfall risk at or above threshold",
+          "holiday": null
+        },
+        {
+          "day": "Tue 17 Mar",
+          "shortfall_risk": "70%",
+          "status": "shortfall risk at or above threshold",
+          "holiday": null
+        },
+        {
+          "day": "Wed 18 Mar",
+          "shortfall_risk": "57%",
+          "status": "shortfall risk at or above threshold",
+          "holiday": null
+        },
+        {
+          "day": "Thu 19 Mar",
+          "shortfall_risk": "30%",
+          "status": "shortfall risk at or above threshold",
+          "holiday": null
+        }
+      ],
+      "days_with_shortfall_risk": 7,
+      "days_at_or_above_threshold_phrase": "7 of the next 7 days",
+      "days_over_rostered": 0,
+      "highest_shortfall_risk": {
+        "day": "Fri 13 Mar",
+        "shortfall_risk": "80%"
+      },
+      "planning_day_shortfall_risk": "80%"
+    },
+    "topics": {
+      "topics_tracked": 24,
+      "topics_outside_expected_range": 2,
+      "outside": [
+        {
+          "topic": "Benefits enquiries",
+          "status": "above",
+          "last_7_days_calls": "1,725",
+          "expected_range": "886–1,274"
+        },
+        {
+          "topic": "Council tax",
+          "status": "above",
+          "last_7_days_calls": "650",
+          "expected_range": "391–614"
+        }
+      ]
+    }
+  },
+  "templates": {
+    "headline": "Action needed: Roster no longer fits the forecast (Duty workforce planner); A week outside the expected range (Planning lead); A call topic outside the expected range (Knowledge lead).",
+    "volume_title": "Tue 10 Mar: 13,679 calls, within the expected range (11,729–14,843). 1 of the 42 days shown fell outside its expected range.",
+    "staffing_title": "Shortfall risk reaches 80% on Fri 13 Mar: 7 of the next 7 days are at or above the 25% action threshold.",
+    "topics_title": "All calls over the last 7 days: 78,559, above the expected range (62,096–75,244). 2 of 24 topics are outside the expected range: Benefits enquiries (1,725 calls, above; expected 886–1,274) and Council tax (650 calls, above; expected 391–614)."
+  },
+  "generatedAt": "2026-11-26T17:29:29.433Z",
+  "attempts": [
+    {
+      "attempt": 1,
+      "at": "2026-11-26T17:29:29.433Z",
+      "responseId": "resp_0cb1da8802eaaca3006b086c74b46087d2bc81f05c4a7ca056",
+      "modelReported": "gpt-6.1-terra",
+      "reasoningReported": {
+        "context": "all_turns",
+        "effort": "medium",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 1751,
+        "input_tokens_details": {
+          "cache_write_tokens": 1748,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1748
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 265,
+        "output_tokens_details": {
+          "reasoning_tokens": 82
+        },
+        "total_tokens": 2016
+      },
+      "output": {
+        "headline": "Action needed: Roster no longer fits the forecast — Duty workforce planner; a week outside the expected range — Planning lead; a call topic outside the expected range — Knowledge lead.",
+        "volume_title": "Tue 10 Mar had 13,679 calls, within the expected range of 11,729–14,843. 1 of the 42 days shown fell outside its expected range.",
+        "staffing_title": "The highest shortfall risk is 80% on Fri 13 Mar, with 7 of the next 7 days at or above the 25% action threshold.",
+        "topics_title": "The last 7 days had 78,559 calls, above the expected range. 2 topics were outside the expected range: Benefits enquiries and Council tax were above the expected range."
+      },
+      "problems": []
+    }
+  ],
+  "published": {
+    "source": "llm",
+    "statements": {
+      "headline": "Action needed: Roster no longer fits the forecast — Duty workforce planner; a week outside the expected range — Planning lead; a call topic outside the expected range — Knowledge lead.",
+      "volume_title": "Tue 10 Mar had 13,679 calls, within the expected range of 11,729–14,843. 1 of the 42 days shown fell outside its expected range.",
+      "staffing_title": "The highest shortfall risk is 80% on Fri 13 Mar, with 7 of the next 7 days at or above the 25% action threshold.",
+      "topics_title": "The last 7 days had 78,559 calls, above the expected range. 2 topics were outside the expected range: Benefits enquiries and Council tax were above the expected range."
+    }
+  }
+}

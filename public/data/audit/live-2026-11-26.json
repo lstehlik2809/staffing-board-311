@@ -1,0 +1,161 @@
+{
+  "id": "live-2026-11-26",
+  "context": {
+    "mode": "live",
+    "runDate": "2026-11-26",
+    "asOf": "2026-11-24",
+    "planningDay": "2026-11-27"
+  },
+  "factsHash": "7890dae771a12bc1",
+  "llm": {
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "medium",
+    "promptVersion": "2026-11-26.5"
+  },
+  "systemPrompt": "You write the short statements on a contact-centre staffing board. A workforce planner reads them at a ten-minute daily huddle to decide whether tomorrow's roster needs changing.\n\nYou are given FACTS as JSON. A tested statistical model and fixed decision rules produced every number and every verdict in it. You do no analysis. You turn the facts into four plain statements.\n\nHard rules:\n1. Use only numbers, day labels and topic names that appear in FACTS, copied character for character (for example \"11,304\", \"9,873–12,478\", \"Tue 24 Nov\", \"4%\"). Never calculate, round, combine or estimate a number.\n2. State the verdict exactly as FACTS gives it: \"within the expected range\", \"above the expected range\" or \"below the expected range\". Do not use words such as up, down, spike, surge, drop, jump, stable, normal or unusual.\n3. Give no causes and no explanations. Give no advice except the defined_response of a rule listed in triggered_rules.\n4. Each statement must describe what its chart shows, leading with the conclusion.\n5. Plain English, sentence case, no hedging, no exclamation marks, no emoji.\n\nThe four statements:\n- headline: If overall is \"no_rule_triggered\", start with \"No action needed.\" and then give the evidence in one or two sentences: the latest_day with its latest_day_calls and its exact latest_day_status phrase, and the highest_shortfall_risk value with its day. If either is null, use last_7_days_total instead. Never only restate the verdict (for example \"No rule was triggered.\"). Otherwise start with \"Action needed:\" and, for each triggered rule, say in a few words what fired and who responds (use the responder exactly as written). Do not repeat the defined responses in full: the board lists them beside each rule. At most 45 words.\n- volume_title: for the chart of daily calls against the range expected the day before. One or two sentences, at most 40 words. Lead with the latest day: it must name latest_day, latest_day_calls, the exact latest_day_status phrase and latest_day_expected_range. Then say how many of the days shown fell outside their expected range, using the exact days_outside_phrase as the subject (for example \"None of the 42 days shown fell outside its expected range.\"). Never say or imply that all days were within range unless days_outside_expected_range is 0.\n- staffing_title: for the chart of required agents against rostered agents over the next days. One sentence, at most 30 words. It must name the highest_shortfall_risk value and its day, and say how many days are at or above the action_threshold using the exact days_at_or_above_threshold_phrase.\n- topics_title: for the small charts of 7-day call totals (all calls and each topic). One or two sentences, at most 45 words. Give the last_7_days_total for all calls with its exact last_7_days_status phrase, then the topics. If any topics are outside the expected range, say how many and name each one (at most three) with its status. If none are, say it once, positively: that all topics_tracked topics are within the expected range (for example \"All 24 topics are within the expected range.\"). Do not also say that none are outside it. Do not write the digit 0 for a count of zero.\n\nReturn JSON only.",
+  "facts": {
+    "data_through": "Tue 24 Nov",
+    "planning_day": "Fri 27 Nov",
+    "outlook_days": 7,
+    "overall": "no_rule_triggered",
+    "triggered_rules": [],
+    "volume": {
+      "latest_day": "Tue 24 Nov",
+      "latest_day_status": "within the expected range",
+      "latest_day_calls": "11,304",
+      "latest_day_expected_range": "10,249–13,020",
+      "days_shown": 42,
+      "days_outside_expected_range": 1,
+      "days_outside_phrase": "1 of the 42 days shown",
+      "outside_days": [
+        {
+          "day": "Tue 3 Nov",
+          "calls": "10,273",
+          "status": "below",
+          "expected_range": "10,997–14,011"
+        }
+      ],
+      "last_7_days_total": "64,309",
+      "last_7_days_expected_range": "60,333–74,768",
+      "last_7_days_status": "within the expected range",
+      "next_day_forecast": {
+        "day": "Fri 27 Nov",
+        "expected_range": "5,099–10,047",
+        "holiday": "Day after Thanksgiving"
+      }
+    },
+    "staffing": {
+      "action_threshold": "25%",
+      "days": [
+        {
+          "day": "Fri 27 Nov",
+          "shortfall_risk": "5%",
+          "status": "roster holds",
+          "holiday": "Day after Thanksgiving"
+        },
+        {
+          "day": "Sat 28 Nov",
+          "shortfall_risk": "4%",
+          "status": "roster holds",
+          "holiday": null
+        },
+        {
+          "day": "Sun 29 Nov",
+          "shortfall_risk": "3%",
+          "status": "roster holds",
+          "holiday": null
+        },
+        {
+          "day": "Mon 30 Nov",
+          "shortfall_risk": "2%",
+          "status": "roster holds",
+          "holiday": null
+        },
+        {
+          "day": "Tue 1 Dec",
+          "shortfall_risk": "3%",
+          "status": "roster holds",
+          "holiday": null
+        },
+        {
+          "day": "Wed 2 Dec",
+          "shortfall_risk": "5%",
+          "status": "roster holds",
+          "holiday": null
+        },
+        {
+          "day": "Thu 3 Dec",
+          "shortfall_risk": "5%",
+          "status": "roster holds",
+          "holiday": null
+        }
+      ],
+      "days_with_shortfall_risk": 0,
+      "days_at_or_above_threshold_phrase": "none of the next 7 days",
+      "days_over_rostered": 0,
+      "highest_shortfall_risk": {
+        "day": "Thu 3 Dec",
+        "shortfall_risk": "5%"
+      },
+      "planning_day_shortfall_risk": "5%"
+    },
+    "topics": {
+      "topics_tracked": 24,
+      "topics_outside_expected_range": 0,
+      "outside": []
+    }
+  },
+  "templates": {
+    "headline": "No action needed. Tue 24 Nov had 11,304 calls, within the expected range, and no rule has fired. The roster holds for the next 7 days: the highest shortfall risk is 5%, on Thu 3 Dec.",
+    "volume_title": "Tue 24 Nov: 11,304 calls, within the expected range (10,249–13,020). 1 of the 42 days shown fell outside its expected range.",
+    "staffing_title": "The roster holds: shortfall risk peaks at 5% on Thu 3 Dec, and none of the next 7 days is at or above the 25% action threshold.",
+    "topics_title": "All calls over the last 7 days: 64,309, within the expected range (60,333–74,768). All 24 topics are within their expected ranges."
+  },
+  "generatedAt": "2026-11-26T17:28:12.835Z",
+  "attempts": [
+    {
+      "attempt": 1,
+      "at": "2026-11-26T17:28:12.835Z",
+      "responseId": "resp_0181b128c9043a45006b086c28ebe487d2bfc54931344a0ac5",
+      "modelReported": "gpt-6.1-terra",
+      "reasoningReported": {
+        "context": "all_turns",
+        "effort": "medium",
+        "mode": "standard",
+        "summary": null
+      },
+      "usage": {
+        "input_tokens": 1484,
+        "input_tokens_details": {
+          "cache_write_tokens": 1481,
+          "cache_write_tokens_details": {
+            "ttl_12h_tokens": 0,
+            "ttl_30m_tokens": 1481
+          },
+          "cached_tokens": 0
+        },
+        "output_tokens": 172,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 1656
+      },
+      "output": {
+        "headline": "No action needed. Tue 24 Nov had 11,304 calls, within the expected range. The highest shortfall risk is 5% on Thu 3 Dec.",
+        "volume_title": "Tue 24 Nov had 11,304 calls, within the expected range of 10,249–13,020. 1 of the 42 days shown fell outside its expected range.",
+        "staffing_title": "The highest shortfall risk is 5% on Thu 3 Dec, and none of the next 7 days are at or above the 25% action threshold.",
+        "topics_title": "The 7-day total for all calls is 64,309, within the expected range. All 24 topics are within the expected range."
+      },
+      "problems": []
+    }
+  ],
+  "published": {
+    "source": "llm",
+    "statements": {
+      "headline": "No action needed. Tue 24 Nov had 11,304 calls, within the expected range. The highest shortfall risk is 5% on Thu 3 Dec.",
+      "volume_title": "Tue 24 Nov had 11,304 calls, within the expected range of 10,249–13,020. 1 of the 42 days shown fell outside its expected range.",
+      "staffing_title": "The highest shortfall risk is 5% on Thu 3 Dec, and none of the next 7 days are at or above the 25% action threshold.",
+      "topics_title": "The 7-day total for all calls is 64,309, within the expected range. All 24 topics are within the expected range."
+    }
+  }
+}

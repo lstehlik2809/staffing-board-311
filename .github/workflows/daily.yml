@@ -1,0 +1,83 @@
+name: Daily refresh and deploy
+
+# Two ways in:
+# - schedule / manual run: fetch fresh NYC 311 data, fit, write and check the
+#   statements, commit the refreshed data, then deploy;
+# - push to main: test and deploy the board exactly as committed (no new data,
+#   no API calls), so a code change never silently rewrites the statements.
+
+on:
+  schedule:
+    # 11:30 UTC is early morning in New York, after the source's overnight update.
+    - cron: '30 11 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # If the source is down this step fails, nothing is published, and the
+      # page keeps the last board (which marks itself out of date).
+      - name: Refresh the board from NYC Open Data
+        if: github.event_name != 'push'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SOCRATA_APP_TOKEN: ${{ secrets.SOCRATA_APP_TOKEN }}
+        run: node pipeline/run.mjs
+
+      - name: Test the model, the rules and the statement checks
+        run: npm test
+
+      - name: Commit the refreshed data and audit record
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data data/ledger.json
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+          else
+            git commit -m "Daily refresh: data to $(node -p "require('./public/data/board.json').asOf")"
+            git push
+          fi
+
+      - run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

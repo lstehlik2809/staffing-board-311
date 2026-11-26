@@ -1,0 +1,17 @@
+[
+  {
+    "id": "quiet",
+    "title": "a quiet day",
+    "summary": "nothing has changed, so no rule should fire."
+  },
+  {
+    "id": "jump",
+    "title": "a one-day jump",
+    "summary": "the latest day is well above its expected range and one topic has risen."
+  },
+  {
+    "id": "rise",
+    "title": "a sustained rise",
+    "summary": "demand has run about 16% higher for a week, after the rosters were fixed."
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "name": "staffing-board-311",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A decision-first staffing board for a contact centre, built on NYC 311 open data to Andrew Marritt's dashboard criteria.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test tests/model.test.mjs",
+    "pipeline": "node pipeline/run.mjs",
+    "pipeline:no-llm": "node pipeline/run.mjs --no-llm"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.0"
+  }
+}

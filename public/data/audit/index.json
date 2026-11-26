@@ -1,0 +1,30 @@
+[
+  {
+    "id": "scenario-rise",
+    "generatedAt": "2026-11-26T17:29:29.433Z",
+    "source": "llm",
+    "factsHash": "1b4f35775b07a01f",
+    "file": "scenario-rise.json"
+  },
+  {
+    "id": "scenario-jump",
+    "generatedAt": "2026-11-26T17:29:03.820Z",
+    "source": "llm",
+    "factsHash": "7606c491c9f0175a",
+    "file": "scenario-jump.json"
+  },
+  {
+    "id": "scenario-quiet",
+    "generatedAt": "2026-11-26T17:28:38.409Z",
+    "source": "llm",
+    "factsHash": "c7f7c564e9603795",
+    "file": "scenario-quiet.json"
+  },
+  {
+    "id": "live-2026-11-26",
+    "generatedAt": "2026-11-26T17:28:12.835Z",
+    "source": "llm",
+    "factsHash": "7890dae771a12bc1",
+    "file": "live-2026-11-26.json"
+  }
+]
