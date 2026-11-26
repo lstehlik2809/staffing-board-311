@@ -49,7 +49,8 @@ export default function App() {
   const initial = useMemo(readHash, []);
   const [view, setView] = useState(initial.view);
   const [showStatements, setShowStatements] = useState(initial.statements);
-  const [theme, setTheme] = useState('auto');
+  // Light by default, whatever the system setting; Dark and Auto (follow the system) on request.
+  const [theme, setTheme] = useState('light');
   const [board, setBoard] = useState(null);
   const [error, setError] = useState(null);
   const [scenarios, setScenarios] = useState([]);
@@ -238,7 +239,7 @@ export default function App() {
             </label>
             <label>Theme
               <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-                <option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option>
+                <option value="light">Light</option><option value="dark">Dark</option><option value="auto">Auto (system)</option>
               </select>
             </label>
           </div>
