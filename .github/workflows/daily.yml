@@ -11,6 +11,11 @@ on:
     # 11:30 UTC is early morning in New York, after the source's overnight update.
     - cron: '30 11 * * *'
   workflow_dispatch:
+    inputs:
+      rewrite_statements:
+        description: 'Ask the language model for new statements even if the facts are unchanged (tests the API key)'
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths-ignore:
@@ -46,7 +51,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SOCRATA_APP_TOKEN: ${{ secrets.SOCRATA_APP_TOKEN }}
-        run: node pipeline/run.mjs
+        run: node pipeline/run.mjs ${{ inputs.rewrite_statements && '--force-statements' || '' }}
 
       - name: Test the model, the rules and the statement checks
         run: npm test

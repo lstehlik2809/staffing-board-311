@@ -3,6 +3,7 @@
 //   node pipeline/run.mjs               full run (needs OPENAI_API_KEY)
 //   node pipeline/run.mjs --no-llm      template statements only
 //   node pipeline/run.mjs --offline     reuse the last fetched data (data/raw)
+//   node pipeline/run.mjs --force-statements   rewrite the statements even if the facts are unchanged
 //   node pipeline/run.mjs --run-date=YYYY-MM-DD
 import { DEFAULTS } from '../src/model/config.js';
 import { addDays, dateRange, holidayOn } from '../src/model/calendar.js';
@@ -99,6 +100,7 @@ writeJson(ledgerFile, ledger);
 
 board.narrative = await narrate(board.facts, board.templates, {
   useLlm: !args.has('--no-llm'),
+  force: args.has('--force-statements'),
   auditDir: p('public', 'data', 'audit'),
   auditId: `live-${runDate}`,
   context: { mode: 'live', runDate, asOf: board.asOf, planningDay: board.planningDay },

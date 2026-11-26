@@ -118,7 +118,8 @@ for the forecast ledger (roughly 80 seconds on a laptop); later runs fit 25.
 3. Repository → Settings → Pages → Source: **GitHub Actions**.
 4. Actions → "Daily refresh and deploy" → Run workflow. After that it runs every day at 11:30 UTC.
 
-A push to `main` only tests and deploys the board as committed; the scheduled and manual runs
+To check that the API key works on a day with no new data, run the workflow by hand with
+"Ask the language model for new statements…" ticked. A push to `main` only tests and deploys the board as committed; the scheduled and manual runs
 fetch new data, write new statements and commit them. Without the secret the board still
 refreshes, with rule-based sentences labelled as such.
 

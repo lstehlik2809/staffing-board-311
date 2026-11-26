@@ -178,7 +178,7 @@ async function callModel(facts, feedback) {
  * Produce the published statements and write the audit record.
  * Returns { statements, source: 'llm' | 'template', ... } for board.json.
  */
-export async function narrate(facts, templates, { useLlm, auditDir, auditId, context }) {
+export async function narrate(facts, templates, { useLlm, auditDir, auditId, context, force = false }) {
   const factsHash = crypto.createHash('sha256').update(JSON.stringify(facts)).digest('hex').slice(0, 16);
   const auditFile = path.join(auditDir, `${auditId}.json`);
   const base = {
@@ -191,7 +191,8 @@ export async function narrate(facts, templates, { useLlm, auditDir, auditId, con
 
   // Same facts, prompt and model as the last record for this id → nothing new to write or to pay for.
   const prior = readJson(auditFile);
-  if (prior && prior.factsHash === factsHash && prior.llm && prior.llm.promptVersion === LLM.promptVersion
+  // `force` rewrites them anyway (for example to test the API key on unchanged data).
+  if (!force && prior && prior.factsHash === factsHash && prior.llm && prior.llm.promptVersion === LLM.promptVersion
       && prior.llm.model === LLM.model && prior.llm.reasoningEffort === LLM.reasoningEffort
       && (prior.published.source === 'llm' || !useLlm)) {
     log('statements: facts unchanged, reusing the audited statements');
