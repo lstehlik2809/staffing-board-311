@@ -1,5 +1,12 @@
 [
   {
+    "id": "live-2026-11-26",
+    "generatedAt": "2026-11-26T18:11:51.005Z",
+    "source": "llm",
+    "factsHash": "7890dae771a12bc1",
+    "file": "live-2026-11-26.json"
+  },
+  {
     "id": "scenario-rise",
     "generatedAt": "2026-11-26T17:29:29.433Z",
     "source": "llm",
@@ -19,12 +26,5 @@
     "source": "llm",
     "factsHash": "c7f7c564e9603795",
     "file": "scenario-quiet.json"
-  },
-  {
-    "id": "live-2026-11-26",
-    "generatedAt": "2026-11-26T17:28:12.835Z",
-    "source": "llm",
-    "factsHash": "7890dae771a12bc1",
-    "file": "live-2026-11-26.json"
   }
 ]

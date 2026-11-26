@@ -111,12 +111,12 @@
     "staffing_title": "The roster holds: shortfall risk peaks at 5% on Thu 3 Dec, and none of the next 7 days is at or above the 25% action threshold.",
     "topics_title": "All calls over the last 7 days: 64,309, within the expected range (60,333–74,768). All 24 topics are within their expected ranges."
   },
-  "generatedAt": "2026-11-26T17:28:12.835Z",
+  "generatedAt": "2026-11-26T18:11:51.005Z",
   "attempts": [
     {
       "attempt": 1,
-      "at": "2026-11-26T17:28:12.835Z",
-      "responseId": "resp_0181b128c9043a45006b086c28ebe487d2bfc54931344a0ac5",
+      "at": "2026-11-26T18:11:51.005Z",
+      "responseId": "resp_05befe1db24bad1c006b087663a35087d2b72855bd6f8a92a9",
       "modelReported": "gpt-6.1-terra",
       "reasoningReported": {
         "context": "all_turns",
@@ -134,17 +134,17 @@
           },
           "cached_tokens": 0
         },
-        "output_tokens": 172,
+        "output_tokens": 169,
         "output_tokens_details": {
           "reasoning_tokens": 0
         },
-        "total_tokens": 1656
+        "total_tokens": 1653
       },
       "output": {
         "headline": "No action needed. Tue 24 Nov had 11,304 calls, within the expected range. The highest shortfall risk is 5% on Thu 3 Dec.",
         "volume_title": "Tue 24 Nov had 11,304 calls, within the expected range of 10,249–13,020. 1 of the 42 days shown fell outside its expected range.",
-        "staffing_title": "The highest shortfall risk is 5% on Thu 3 Dec, and none of the next 7 days are at or above the 25% action threshold.",
-        "topics_title": "The 7-day total for all calls is 64,309, within the expected range. All 24 topics are within the expected range."
+        "staffing_title": "The highest shortfall risk is 5% on Thu 3 Dec; none of the next 7 days are at or above the 25% action threshold.",
+        "topics_title": "The 7-day total of 64,309 calls is within the expected range. All 24 topics are within the expected range."
       },
       "problems": []
     }
@@ -154,8 +154,8 @@
     "statements": {
       "headline": "No action needed. Tue 24 Nov had 11,304 calls, within the expected range. The highest shortfall risk is 5% on Thu 3 Dec.",
       "volume_title": "Tue 24 Nov had 11,304 calls, within the expected range of 10,249–13,020. 1 of the 42 days shown fell outside its expected range.",
-      "staffing_title": "The highest shortfall risk is 5% on Thu 3 Dec, and none of the next 7 days are at or above the 25% action threshold.",
-      "topics_title": "The 7-day total for all calls is 64,309, within the expected range. All 24 topics are within the expected range."
+      "staffing_title": "The highest shortfall risk is 5% on Thu 3 Dec; none of the next 7 days are at or above the 25% action threshold.",
+      "topics_title": "The 7-day total of 64,309 calls is within the expected range. All 24 topics are within the expected range."
     }
   }
 }
