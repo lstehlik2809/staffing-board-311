@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconOk, IconAlert } from '../lib/ui.jsx';
+import { IconOk, IconAlert, jumpTo } from '../lib/ui.jsx';
 import { fmtDay, fmtDayLong, diffDays } from '../model/calendar.js';
 import { fmtInt } from '../model/format.js';
 
@@ -8,6 +8,71 @@ import { fmtInt } from '../model/format.js';
 
 const pct = (a, n) => (n ? `${Math.round((100 * a) / n)}%` : '—');
 const nyTime = (iso) => new Date(iso).toLocaleString('en-GB', { timeZone: 'America/New_York', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+const SERIES = [
+  ['Dashboards without decisions', 'https://andrewmarritt.substack.com/p/dashboards-without-decisions'],
+  ['The hidden costs of dashboards', 'https://andrewmarritt.substack.com/p/the-hidden-costs-of-dashboards'],
+  ['What to do when you have to build a dashboard', 'https://andrewmarritt.substack.com/p/what-to-do-when-you-have-to-build'],
+];
+
+// Each of Marritt's requirements, what this board does about it, and where to see it.
+const IDEAS = [
+  ['A routine first', 'Four rules, each with a defined response, an owner and a deadline.', 'The routine', 'routine-h'],
+  ['Control limits, not traffic lights', 'Every day is judged against the range the model expected the day before.', 'Daily calls', 'vol-h'],
+  ['A forecast only as a band', 'The bars after the line are forecast ranges; no line is drawn to second-guess.', 'Daily calls', 'vol-h'],
+  ['A sentence the chart visibly supports', 'Machine-written from numbers computed in code, checked by code, labelled and logged.', 'How the statements are written', 'audit-h'],
+  ['Test whether it changes decisions', 'Hide the statements and use invented scenarios for a read–judge–decide test.', 'Test it before you trust it', 'test-h'],
+  ['A model you can check', 'The Bayesian model is fitted again in your browser and compared with the published forecast.', 'Is the forecast any good?', 'model-h'],
+];
+
+/** The story behind the board, for visitors: why it exists and where each idea shows up. */
+export function IdeaInBrief({ live }) {
+  return (
+    <section className="idea" aria-labelledby="idea-h">
+      <div className="idea-story">
+        <p className="kicker">The idea in brief · about a minute to read</p>
+        <h2 id="idea-h">Most HR dashboards shouldn’t be built. This one tries to earn its place.</h2>
+        <p>
+          In a three-part series on dashboards in people analytics, Andrew Marritt argues that most HR dashboards fail a
+          simple economic test: their data changes more slowly than the decisions they are meant to support, and every
+          reader is left to interpret the numbers alone, noise included. When a dashboard is built anyway, he says, it needs
+          a routine around it, control limits, forecasts shown only as a band, and a sentence on each chart saying what it
+          shows. A language model may write that sentence, but only if the numbers come from code, the uncertainty is
+          stated, the text is labelled, and someone tests whether it changes decisions.
+        </p>
+        <p>
+          This board is a working example of all of it. It answers one question for a contact-centre planner: does
+          tomorrow’s roster still fit the forecast? Shift staffing is one of the few people-related uses where Marritt thinks
+          a live display can pay off, because demand changes faster than the roster decision, and a quiet board is a good
+          outcome.
+        </p>
+        <p className="idea-note">
+          {live
+            ? 'It runs every day on live NYC 311 call data, but it is a demonstration: NYC 311 does not use it, and the routine, thresholds and staffing assumptions are illustrative.'
+            : 'You are looking at invented data for a usability test. The live board runs every day on NYC 311 call data; NYC 311 does not use it, and the routine, thresholds and staffing assumptions are illustrative.'}
+        </p>
+        <p className="idea-note">
+          Read the series:{' '}
+          {SERIES.map(([title, href], i) => (
+            <React.Fragment key={href}>{i > 0 && ' · '}<a href={href}>{title}</a></React.Fragment>
+          ))}
+        </p>
+      </div>
+      <div className="idea-map">
+        <p className="kicker">Where each idea shows up</p>
+        <ul>
+          {IDEAS.map(([idea, how, where, id]) => (
+            <li key={idea}>
+              <span className="i-name">{idea}</span>
+              <span className="i-how">{how}</span>
+              <button className="btn link" type="button" onClick={() => jumpTo(id)}>{where} ↓</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
 
 export function RoutineCard({ routine }) {
   return (
@@ -221,13 +286,6 @@ export function Notes({ board, base, scenarios, setView, showStatements, setShow
             ))}
             {!live && <li><button className="btn link" type="button" onClick={() => setView('live')}>Back to live data</button></li>}
           </ul>
-          <h2 style={{ marginTop: 16 }}>Why it is built this way</h2>
-          <p className="lede">
-            The design follows Andrew Marritt’s <a href="https://andrewmarritt.substack.com/p/what-to-do-when-you-have-to-build">series on dashboards in people analytics</a>:
-            a routine first; control limits always; a forecast only as a range; a written statement the chart visibly supports; and
-            a test that looks for a decision. Shift staffing is one of the few people-related uses he judges worth a live display,
-            because demand changes faster than the decision recurs and a quiet board is a good outcome.
-          </p>
         </section>
       </div>
       <p className="colophon">

@@ -15,6 +15,19 @@ export function useWidth() {
   return [ref, w];
 }
 
+/**
+ * Scroll to a section and move focus to it. Buttons, not #anchors: the page keeps
+ * its view state in the URL hash, so an anchor link would reset the view.
+ */
+export function jumpTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+  el.focus({ preventScroll: true });
+}
+
 /** Text size relative to the 16px default (1 = default, 1.5 = 150%). */
 export const textScale = () => Math.min(2, Math.max(0.8, parseFloat(getComputedStyle(document.documentElement).fontSize) / 16 || 1));
 

@@ -329,6 +329,35 @@ table.data td.txt, table.data th.txt { text-align: left; white-space: normal; }
 
 /* ---- reference pages: read once, then on demand — quieter than the stories ---- */
 .reference { margin-top: var(--s5); border-top: 3px double var(--rule-strong); padding-top: var(--s3); }
+
+/* The idea in brief: the story behind the board, set as authored prose (serif), with a
+   map from each requirement to the part of the board that shows it. */
+.idea { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--s6); padding: var(--s2) 0 var(--s5); border-bottom: 1px solid var(--rule); }
+@media (max-width: 1080px) { .idea { grid-template-columns: minmax(0, 1fr); gap: var(--s5); } }
+.idea h2 { font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 2.125rem); line-height: 1.1; font-weight: 700; letter-spacing: -0.015em; margin-top: var(--s2); text-wrap: balance; }
+.idea-story p:not(.kicker) { font-family: var(--serif); font-size: var(--fs-lede); line-height: 1.5; margin-top: var(--s3); max-width: 36em; text-wrap: pretty; }
+.idea-story p.idea-note { font-family: var(--sans); font-size: var(--fs-small); line-height: 1.45; color: var(--ink-2); }
+.idea-map ul { list-style: none; margin: var(--s2) 0 0; padding: 0; }
+.idea-map li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px var(--s3); align-items: baseline; padding: 9px 0; border-top: 1px solid var(--rule); }
+.idea-map li:first-child { border-top: 0; }
+.idea-map .i-name { font-weight: 600; }
+.idea-map .i-how { grid-column: 1; color: var(--ink-2); font-size: var(--fs-small); }
+.idea-map .btn.link { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: var(--fs-small); white-space: nowrap; }
+@media (max-width: 520px) {
+  .idea-map li { grid-template-columns: minmax(0, 1fr); }
+  .idea-map .btn.link { grid-column: 1; grid-row: auto; justify-self: start; }
+}
+.ref-kicker { margin-top: var(--s4); }
+/* Jump targets keep their kicker line in view. */
+.idea h2, .ref h2, .headline { scroll-margin-top: 2.75rem; }
+
+/* "What is this?" — one quiet line for first-time visitors, hidden once dismissed. */
+.about-strip {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s1) var(--s3);
+  padding: var(--s2) 0; border-bottom: 1px solid var(--rule); font-size: var(--fs-small); color: var(--ink-2);
+}
+.about-strip b { color: var(--ink); font-weight: 600; }
+.about-strip .hide { margin-left: auto; color: var(--muted); }
 .ref-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: var(--s4); }
 .ref-cols > .ref + .ref { padding-left: var(--s5); margin-left: var(--s5); border-left: 1px solid var(--rule); }
 @media (max-width: 1080px) {

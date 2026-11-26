@@ -7,7 +7,14 @@ import VolumeChart from './components/VolumeChart.jsx';
 import StaffingPanel, { SERVICE_LEVELS } from './components/StaffingPanel.jsx';
 import TopicsGrid from './components/TopicsGrid.jsx';
 import StatusBand, { Byline } from './components/StatusBand.jsx';
-import { RoutineCard, AuditCard, ModelCard, Notes } from './components/Cards.jsx';
+import { RoutineCard, AuditCard, ModelCard, Notes, IdeaInBrief } from './components/Cards.jsx';
+import { jumpTo } from './lib/ui.jsx';
+
+// The "What is this?" line under the masthead is for first-time visitors; once
+// hidden it stays hidden for that browser (a convenience, so failures are ignored).
+const ABOUT_KEY = 'staffing-board:about-hidden';
+const readAboutHidden = () => { try { return window.localStorage.getItem(ABOUT_KEY) === '1'; } catch { return false; } };
+const storeAboutHidden = () => { try { window.localStorage.setItem(ABOUT_KEY, '1'); } catch { /* private mode: hide for this visit only */ } };
 
 const BASE = import.meta.env.BASE_URL;
 const nyToday = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
@@ -50,6 +57,7 @@ export default function App() {
   const [fitCfg, setFitCfg] = useState(null);
   const [fit, setFit] = useState({ status: 'idle', result: null, boardId: null });
   const workerRef = useRef(null);
+  const [aboutHidden, setAboutHidden] = useState(readAboutHidden);
 
   // ---- view state in the URL, so a test scenario can be shared as a link
   useEffect(() => {
@@ -237,6 +245,16 @@ export default function App() {
         </div>
       </header>
 
+      {!aboutHidden && (
+        <div className="about-strip">
+          <span>
+            <b>What is this?</b> A working example of a people-analytics dashboard built to Andrew Marritt’s criteria for the few dashboards worth having, on live NYC 311 data.
+          </span>
+          <button className="btn link" type="button" onClick={() => jumpTo('idea-h')}>Read the idea in brief ↓</button>
+          <button className="btn link hide" type="button" onClick={() => { setAboutHidden(true); storeAboutHidden(); }} aria-label="Hide this introduction">Hide</button>
+        </div>
+      )}
+
       {!isLive && (
         <div className="notice" role="note">
           <span><b>Invented data.</b> Scenario “{board.scenario.title}”: {board.scenario.summary} A fixed test case for usability sessions; the dates and numbers are fictional.</span>
@@ -296,7 +314,8 @@ export default function App() {
         </section>
 
         <div className="reference">
-          <p className="kicker">Reference · how this board works</p>
+          <IdeaInBrief live={isLive} />
+          <p className="kicker ref-kicker">Reference · how this board works</p>
           <div className="ref-cols">
             <RoutineCard routine={board.routine} />
             <AuditCard narrative={board.narrative} facts={board.facts} base={BASE} id="audit" />

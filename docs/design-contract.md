@@ -28,6 +28,12 @@ thresholds and staffing figures are illustrative because no real team owns this 
 4. **Investigate** — 7-day totals for all calls and each topic; select a panel for its numbers; tables behind every chart.
 5. **Act, or decide no action is needed** — a fired rule shows who responds, by when, and how.
 
+A second audience, public visitors, needs to know what the board is before any of that makes
+sense. They get one dismissible "What is this?" line under the masthead (hidden for good once
+dismissed, so the planner's view stays clean) pointing to "The idea in brief" at the start of
+the Reference section: the argument from Marritt's series, why staffing, a demo disclaimer,
+and a map from each requirement to the part of the board that shows it, with jump links.
+
 ## Metric dictionary
 
 | Metric | Definition | Grain / time | Comparison | Quality notes |
