@@ -1,5 +1,12 @@
 [
   {
+    "id": "live-2026-11-27",
+    "generatedAt": "2026-11-27T20:13:18.262Z",
+    "source": "llm",
+    "factsHash": "9dfa91ae90c07c76",
+    "file": "live-2026-11-27.json"
+  },
+  {
     "id": "live-2026-11-26",
     "generatedAt": "2026-11-26T18:11:51.005Z",
     "source": "llm",
